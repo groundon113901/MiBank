@@ -1,0 +1,40 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Scheduled Payments";
+}
+
+<div>
+    <h1 class="display-4">Welcome, @Model.Name</h1>
+
+    <h3>Your Scheduled Payments</h3>
+    <table class="table">
+        <tr>
+            <th>Payee</th>
+            <th>Amount</th>
+            <th>Scheduled Date</th>
+            <th>Period</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var account in Model.Accounts)
+        {
+            {
+                var billPaylist = account.BillPays.ToList();
+                billPaylist.Sort(new Comparison<BillPay>((x, y) => DateTime.Compare(x.ScheduleDate, y.ScheduleDate)));
+              @foreach (var billpay in billPaylist)
+                {
+                  var period = BillPayperiodExtensions.ToFriendlyString(billpay.PayPeriod);
+                <tr>
+                    <td>@Html.DisplayFor(x => billpay.Payee.Name)</td>
+                    <td>@Html.DisplayFor(x => billpay.Amount)</td>
+                    <td>@Html.DisplayFor(x => billpay.ScheduleDate)</td>
+                    <td>@period</td>
+                    <td>
+                        <a class="btn btn-primary"
+                           asp-action="PayBills" asp-route-id="@billpay.BillPayID">Modify</a>
+                    </td>
+                </tr>
+              }
+            }
+        }
+    </table>
+</div>

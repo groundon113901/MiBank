@@ -1,0 +1,108 @@
+<h1>Transaction Data</h1>
+
+<p *ngIf="!transList || !custList"><em>Loading...</em></p>
+
+<div class="form-group">
+  Customer: <select class="input-group" [(ngModel)]="customerSearch" (change)="onChange($event)" id="customer">
+  <option selected value=null>View All Customers</option>
+    <option *ngFor="let cust of custList" [value]="cust.customerID">{{cust.name}}</option>
+  </select>
+</div>
+
+<div class="form-group">
+  Account: <select class="input-group" [(ngModel)]="accountSearch" (change)="onChange($event)" id="account">
+  <option selected value=null>View All Accounts</option>
+  <option *ngFor="let trans of transList | transasctionPipe: customerSearch:amountFromSearch:amountToSearch:dateFromRange:dateToRange:accountSearch:accountTypeSearch:transactionTypeSearch | unique" [value]="trans.accountNumber">{{trans.accountNumber}}</option>
+</select>
+</div>
+
+<div class="form-group">
+  Account Type <select class="input-group" [(ngModel)]="accountTypeSearch" (change)="onChange($event)" id="accountType">
+  <option selected value=null>View All Account Types</option>
+  <option value="0">Saving</option>
+  <option value="1">Checking</option>
+</select>
+</div>
+
+<div class="form-group">
+  Transaction Type <select class="input-group" [(ngModel)]="transactionTypeSearch" (change)="onChange($event)" id="transType">
+  <option value="null">View All Transaction Types</option>
+    <option value="0">Deposit</option>
+    <option value="1">Withdraw</option>
+    <option value="2">Trasnfer</option>
+    <option value="3">Service</option>
+    <option value="4">BillPay</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <input type="number" class="form-control" placeholder="From Amount" [(ngModel)]="amountFromSearch" (change)="onChange($event)" id="fromAmount">
+</div>
+
+<div class="form-group">
+  <input type="number" class="form-control" placeholder="To Amount" [(ngModel)]="amountToSearch" (change)="onChange($event)" id="toAmount">
+</div>
+
+<div class="form-group">
+  From: <input type="datetime-local" class="form-control" placeholder="Search via Date" [(ngModel)]="dateFromRange" (change)="onChange($event)" id="fromDate">
+</div>
+
+<div class="form-group">
+  To: <input type="datetime-local" class="form-control" placeholder="Search via Date" [(ngModel)]="dateToRange" (change)="onChange($event)" id="toDate">
+</div>
+
+<table class='table' *ngIf="transList">
+  <thead>
+    <tr>
+      <th>Transaction ID</th>
+      <th>Customer</th>
+      <th>Account Number</th>
+      <th>Destination Account</th>
+      <th>Transaction Type</th>
+      <th>Amount</th>
+      <th>Comment</th>
+      <th>Transaction Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trans of transList | transasctionPipe: customerSearch:amountFromSearch:amountToSearch:dateFromRange:dateToRange:accountSearch:accountTypeSearch:transactionTypeSearch">
+      <td>{{ trans.transactionID }}</td>
+      <td>{{ trans.account.customer.name }}</td>
+      <td>{{ trans.accountNumber }}</td>
+      <td>{{ trans.destAccountNumber }}</td>
+      <td>{{ trans.transactionTypeName }}</td>
+      <td>{{ trans.amount }}</td>
+      <td>{{ trans.comment }}</td>
+      <td>{{ trans.transactionTimeUtc }}</td>
+      <td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="isLoaded">
+  <canvas baseChart
+          [options]="chartOptions"
+          [chartType]="chartType"
+          [legend]="chartLegend"
+          [datasets]="chart1Data"
+          [labels]="chart1Labels">
+  </canvas>
+</div>
+
+<div *ngIf="isLoaded2">
+  <canvas baseChart
+          [options]="chartOptions2"
+          [chartType]="chartType3"
+          [legend]="chartLegend"
+          [datasets]="chart2Data"
+          [labels]="chartLabels"></canvas>
+</div>
+
+<div *ngIf="isLoaded3">
+  <canvas baseChart
+          [options]="chartOptions3"
+          [chartType]="chartType2"
+          [data]="chart3Data"
+        [labels]="chartLabels">
+  </canvas>
+</div>

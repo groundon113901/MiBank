@@ -1,0 +1,26 @@
+<h1>Login Data</h1>
+
+<p *ngIf="!logList"><em>Loading...</em></p>
+
+
+<table class='table' *ngIf="logList">
+  <thead>
+    <tr>
+      <th>LoginID</th>
+      <th>Customer</th>
+      <th>Last Modified</th>
+      <th>Locked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let log of logList">
+      <td>{{ log.loginID }}</td>
+      <td>{{ log.customer.name }}</td>
+      <td>{{ log.modifyDate }}</td>
+      <td>{{ log.locked }}</td>
+      <td>
+        <a [routerLink]="" (click)="lockOrUnlock(log.loginID)">Lock/UnLock</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

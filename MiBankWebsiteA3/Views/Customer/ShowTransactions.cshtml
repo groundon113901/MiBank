@@ -1,0 +1,76 @@
+﻿@model Account
+@{
+    ViewData["Title"] = "Statements";
+    var transactionlist = Model.Transactions.ToList();
+    transactionlist.Sort(new Comparison<Transaction>
+    ((x, y) => DateTime.Compare(y.TransactionTimeUtc, x.TransactionTimeUtc)));
+}
+
+<div>
+    <h1 class="display-4">Welcome, @ViewBag.Customer.Name</h1>
+    </br>
+    </br>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Account</th>
+            <th>Destination</th>
+            <th>Amount</th>
+            <th>Comment</th>
+            <th>Date</th>
+        </tr>
+
+        @for (var i = (ViewBag.PageCurrent * 4) - 4; i < ViewBag.PageCurrent * 4 && i <= transactionlist.Count - 1; i++)
+        {
+            <tr>
+                <td>@transactionlist[i].TransactionID</td>
+                <td>@transactionlist[i].TransactionType</td>
+                <td>@transactionlist[i].AccountNumber</td>
+                <td>@transactionlist[i].DestAccountNumber</td>
+                <td>@transactionlist[i].Amount</td>
+                <td>@transactionlist[i].Comment</td>
+                <td>@transactionlist[i].TransactionTimeUtc.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </table>
+</div>
+</br>
+</br>
+<div>
+    <ul class="pagination justify-content-center">
+        @{
+            if (ViewBag.PagePrevious == ViewBag.PageFirst && ViewBag.PageCurrent == ViewBag.PageFirst)
+            {
+                <li class="page-item disabled"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@ViewBag.PagePrevious">Previous</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@ViewBag.PagePrevious">Previous</a></li>
+            }
+
+
+            for (int i = 0; i < ViewBag.PageLast; i++)
+            {
+                var num = i + 1;
+                if (num == ViewBag.PageCurrent)
+                {
+                    <li class="page-item disabled"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@num">@num</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@num">@num</a></li>
+                }
+            }
+
+            if (ViewBag.PageNext == ViewBag.PageLast && ViewBag.PageCurrent == ViewBag.PageLast)
+            {
+                <li class="page-item disabled"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@ViewBag.PageNext">Next</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="ShowTransactions" asp-route-pageid="@ViewBag.PageNext">Next</a></li>
+            }
+        }
+    </ul>
+</div>

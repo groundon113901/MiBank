@@ -1,0 +1,141 @@
+﻿@model Customer
+@{
+    ViewData["Title"] = "Accounts";
+}
+
+<h1 class="display-4">Welcome, @Model.Name</h1>
+<br />
+<br />
+<div class="row">
+    @{ if (ViewBag.Edit == null)
+        {
+        <div class="table-responsive col-md-6">
+            <table class="table">
+                <tr>
+                    <td>@Html.LabelFor(m => m.CustomerID)</td>
+                    <td>@Model.CustomerID</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Name)</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.TFN)</td>
+                    <td>@Model.TFN</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Address)</td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.City)</td>
+                    <td>@Model.City</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.State)</td>
+                    <td>@Model.State</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.PostCode)</td>
+                    <td>@Model.PostCode</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.Phone)</td>
+                    <td>@Model.Phone</td>
+                </tr>
+            </table>
+            @if (TempData["SuccessAccount"] != null)
+            {
+                <div class="text-success">
+                    <p><strong>Success:</strong> @TempData["SuccessAccount"].ToString()</p>
+                </div>
+            }
+            <a class="btn btn-primary" asp-controller="Customer" asp-action="Settings" asp-route-edit="1">Edit</a>
+        </div>
+
+        }
+        else
+        {
+            <div class="table-responsive col-md-6">
+                <form asp-action="ChangeAccountDetails">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.TFN, "Tax File Number")
+                        @Html.EditorFor(m => m.TFN, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.TFN, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.EditorFor(m => m.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.City)
+                        @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.State)
+                        @Html.EditorFor(m => m.State, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PostCode)
+                        @Html.EditorFor(m => m.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.PostCode, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Phone)
+                        @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <a class="btn btn-primary" asp-controller="Customer" asp-action="Settings">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        }
+    }
+        <div class="table-responsive col-md-6">
+            <div class="float-right table-responsive col-md-6">
+            <h3>Reset Password</h3>
+            <table class="justify-content-end">
+                <form asp-action="Settings">
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input id="currentPassword" name="currentPassword" class="form-control" data-val="true" />
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input id="newPassword" name="newPassword" class="form-control" data-val="true" />
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Current Password</label>
+                        <input id="confirmPassword" name="confirmPassword" class="form-control" data-val="true" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Change Password" class="btn btn-primary" />
+                    </div>
+                </form>
+                @Html.ValidationMessage("passwordincorrect", new { @class = "text-danger" })
+                @Html.ValidationMessage("nomatch", new { @class = "text-danger" })
+                @if (TempData["Success"] != null)
+                {
+                    <div class="text-success">
+                        <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
+                    </div>
+                }
+            </table>
+        </div>
+            </div>
+    </div>
+
+    @section Scripts {
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    }
+

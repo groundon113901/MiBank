@@ -1,0 +1,34 @@
+<h1>Customer Data</h1>
+
+<p *ngIf="!cusList"><em>Loading...</em></p>
+
+<table class='table' *ngIf="cusList">
+  <thead>
+    <tr>
+      <th>CustomerID</th>
+      <th>Name</th>
+      <th>TFN</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Postcode</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cus of cusList">
+      <td>{{ cus.customerID }}</td>
+      <td>{{ cus.name }}</td>
+      <td>{{ cus.tfn }}</td>
+      <td>{{ cus.address }}</td>
+      <td>{{ cus.city }}</td>
+      <td>{{ cus.state }}</td>
+      <td>{{ cus.postCode }}</td>
+      <td>{{ cus.phone }}</td>
+      <td>
+      <td>
+        <a [routerLink]="['/customer/edit/', cus.customerID]">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

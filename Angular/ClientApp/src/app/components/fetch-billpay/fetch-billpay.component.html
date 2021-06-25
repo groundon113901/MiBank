@@ -1,0 +1,36 @@
+<h1>BillPay Data</h1>
+
+<p *ngIf="!billPayList"><em>Loading...</em></p>
+
+
+<table class='table' *ngIf="billPayList">
+  <thead>
+    <tr>
+      <th>Bill Pay ID</th>
+      <th>Account</th>
+      <th>Customer</th>
+      <th>Payee Name</th>
+      <th>Amount</th>
+      <th>Scheduled Date</th>
+      <th>Pay Period</th>
+      <th>Blocked</th>
+      <th>Last Modified Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bp of billPayList">
+      <td>{{ bp.billPayID }}</td>
+      <td>{{ bp.accountNumber }}</td>
+      <td>{{ bp.payee.customer.name }}</td>
+      <td>{{ bp.payee.name }}</td>
+      <td>{{ bp.amount }}</td>
+      <td>{{ bp.scheduleDate }}</td>
+      <td>{{ bp.payPeriodWord }}</td>
+      <td>{{ bp.blocked }}</td>
+      <td>{{ bp.lastModified }}</td>
+      <td>
+        <a [routerLink]="" (click)="blockOrUnblock(bp.billPayID)">Block/UnBlock</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

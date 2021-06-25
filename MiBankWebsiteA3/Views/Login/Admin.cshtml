@@ -1,0 +1,47 @@
+﻿@model MiBankWebsiteA3.Models.AdminLogin
+@{
+    ViewData["Title"] = "Admin Portal Login";
+}
+<link rel="stylesheet" href="~/css/login.css" />
+<h1 class=" = 'display-4">Admin Portal Login</h1>
+</br>
+<form asp-action="Admin">
+    <table id="loginTable">
+        <tr>
+            <th>
+                @Html.LabelFor(m => m.LoginID)
+            </th>
+            <td>
+                @Html.EditorFor(m => m.LoginID)
+            </td>
+            <td>
+                @Html.ValidationMessageFor(m => m.LoginID, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(m => m.PasswordHash, "Password")
+            </th>
+            <td>
+                @Html.EditorFor(m => m.PasswordHash, new { htmlAttributes = new { @type = "password", @maxlength = "20" } })
+            </td>
+            <td>
+                @Html.ValidationMessageFor(m => m.PasswordHash, "", new { @class = "text-danger" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </td>
+            <td>
+                @Html.ValidationMessage("LoginFailed", new { @class = "text-danger" })
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiBankWebsiteA3", "MiBankWebsiteA3\MiBankWebsiteA3.csproj", "{DFC86804-8266-41FA-BCA8-3FE00C6A0FCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angular", "Angular\Angular.csproj", "{08BCEC16-8968-4FBB-8295-72C61082D723}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFC86804-8266-41FA-BCA8-3FE00C6A0FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC86804-8266-41FA-BCA8-3FE00C6A0FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC86804-8266-41FA-BCA8-3FE00C6A0FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC86804-8266-41FA-BCA8-3FE00C6A0FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BCEC16-8968-4FBB-8295-72C61082D723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BCEC16-8968-4FBB-8295-72C61082D723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BCEC16-8968-4FBB-8295-72C61082D723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BCEC16-8968-4FBB-8295-72C61082D723}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2ECADE2-AF8A-4C43-9906-0DB9C2E00858}
+	EndGlobalSection
+EndGlobal

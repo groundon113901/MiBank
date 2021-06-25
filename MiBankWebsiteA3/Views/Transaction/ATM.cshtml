@@ -1,0 +1,65 @@
+﻿@model Transaction
+@{
+    ViewData["Title"] = "ATM";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ATM</h1>
+
+<form asp-action="ATM">
+    <div class="form-group">
+        @Html.LabelFor(model => model.TransactionType)
+        <br />
+        <select name="transactionType" class="form-control">
+            <option value="" disabled selected>Select Transaction type</option>
+            <option value="@TransactionTypeEnum.W.ToFriendlyString()">Withdraw</option>
+            <option value="@TransactionTypeEnum.D.ToFriendlyString()">Deposit</option>
+            <option value="@TransactionTypeEnum.T.ToFriendlyString()">Transfer</option>
+        </select>
+        <br />
+        @Html.ValidationMessageFor(model => model.TransactionType, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.AccountNumber, "Account")
+        <br />
+        @Html.DropDownListFor(model => model.AccountNumber, new SelectList(ViewBag.Customer.Accounts, "AccountNumber", "AccountNumber"), "Select Account", new { @class = "form-control" })
+        <br />
+        @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DestAccountNumber, "Destination Account")
+        <br />
+        @Html.DropDownListFor(model => model.DestAccountNumber, new SelectList(ViewBag.Customer.Accounts, "AccountNumber", "AccountNumber"), "Select Account", new { @class = "form-control" })
+        <br />        
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Amount)
+        <br />
+        @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Amount" } })
+        <br />
+        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comment)
+        <br />
+        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Comment" } })
+        <br />
+        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div class="text-success">
+        <p><strong>Success:</strong> @TempData["Success"].ToString()</p>
+    </div>
+}
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
